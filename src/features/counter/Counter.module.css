@@ -4,6 +4,18 @@
   justify-content: center;
 }
 
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+}
+
+.padding {
+  padding-top: 10px;
+}
+
 .row > button {
   margin-left: 4px;
   margin-right: 8px;
@@ -36,12 +48,23 @@
   transition: all 0.15s;
 }
 
-.textbox {
-  font-size: 32px;
-  padding: 2px;
-  width: 64px;
-  text-align: center;
-  margin-right: 4px;
+.button:disabled {
+  cursor: not-allowed !important;
+  color: rgb(161, 161, 161);
+  transition: none !important;
+}
+
+.button:active {
+  background-color: rgba(112, 76, 182, 0.2);
+}
+
+.button:active:disabled {
+  background-color: rgba(112, 76, 182, 0.1);
+}
+
+.button:hover:disabled,
+.button:focus:disabled {
+  border: 2px solid transparent;
 }
 
 .button:hover,
@@ -49,8 +72,15 @@
   border: 2px solid rgba(112, 76, 182, 0.4);
 }
 
-.button:active {
-  background-color: rgba(112, 76, 182, 0.2);
+
+
+
+.textbox {
+  font-size: 32px;
+  padding: 2px;
+  width: 64px;
+  text-align: center;
+  margin-right: 4px;
 }
 
 .asyncButton {

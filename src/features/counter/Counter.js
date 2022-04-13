@@ -7,18 +7,33 @@ import {
   incrementIfOdd,
   selectCount,
 } from './counterSlice';
+import store from '../../app/store';
 import styles from './Counter.module.css';
 
 export function Counter() {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
-  const [incrementAmount, setIncrementAmount] = useState('2');
 
-  const incrementValue = Number(incrementAmount) || 0;
+  const [ autoClickButtonVisible, setAutoClickButtonVisibleValue ] = useState(true);
+
+
+  const handleAutoClick = () => {
+
+    // turn off the button
+    setAutoClickButtonVisibleValue(false);
+
+    // click every 10 seconds
+    setInterval(() => {
+      dispatch(incrementAsync(1));
+      console.log('click');
+    }, 10000);
+  };
+
+  const handleDisabledAutoClick = () => (!selectCount(store.getState()) >= 5);
 
   return (
-    <div>
-      <div className={styles.row}>
+    <>
+      <div className={styles.column}>
         <span className={styles.value}>{count}</span>
         <button
           className={styles.button}
@@ -28,32 +43,9 @@ export function Counter() {
           +
         </button>
       </div>
-      <div className={styles.row}>
-        <input
-          className={styles.textbox}
-          aria-label="Set increment amount"
-          value={incrementAmount}
-          onChange={(e) => setIncrementAmount(e.target.value)}
-        />
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementByAmount(incrementValue))}
-        >
-          Add Amount
-        </button>
-        <button
-          className={styles.asyncButton}
-          onClick={() => dispatch(incrementAsync(incrementValue))}
-        >
-          Add Async
-        </button>
-        <button
-          className={styles.button}
-          onClick={() => dispatch(incrementIfOdd(incrementValue))}
-        >
-          Add If Odd
-        </button>
+      <div className={[styles.row, styles.padding].join(' ')}>
+        {autoClickButtonVisible && <button className={styles.button} onClick={() => handleAutoClick()} disabled={handleDisabledAutoClick()}>Auto Click</button> }
       </div>
-    </div>
+    </>
   );
 }
