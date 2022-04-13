@@ -13,7 +13,6 @@ const persistor = persistStore(store);
 ReactDOM.render(
   <StrictMode>
     <Provider store={store}>
-      <App />
       <PersistGate loading={null} persistor={persistor}>
         <App />
       </PersistGate>
